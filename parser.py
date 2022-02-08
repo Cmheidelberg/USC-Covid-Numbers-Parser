@@ -33,13 +33,19 @@ def parse_page_strong_text(strongs):
     """
     splits = []
     for i in strongs:
-        curr_split = i.contents[0].split()
+        white_space_split = i.contents[0].split()
         removed_junk = []
-        if len(curr_split) >= 3:
-            for j in curr_split:
-                
-                # Remove || deliminator between some fields 
-                if j != "||":
+        if len(white_space_split) >= 3:
+            removed_junk.append(white_space_split[0])
+            removed_junk.append(white_space_split[1])
+
+            metadata_split = ' '.join(white_space_split[2:-1])
+            metadata_split = metadata_split.split("||")
+            for j in metadata_split:
+                j = j.strip()
+                if len(j) <= 0 or j == "" or j==None:
+                    removed_junk.append("null")
+                else:
                     removed_junk.append(j)
             
             #Remove things that dont start with class number
