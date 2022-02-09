@@ -2,4 +2,5 @@ output.csv
 classes.csv
 
 /__pycache__
+src/__pycache__
 
