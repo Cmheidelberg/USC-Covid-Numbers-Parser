@@ -1,10 +1,8 @@
-from hashlib import new
 from bs4 import BeautifulSoup
-from cv2 import line
 from constants import *
 
 
-def parse_html_file(path):
+def parse_cases_html_file(path):
     """Parse the given html file using BeautifulSoup. Return BeautifulSoup object if parsable, None otherwise. 
 
     Args:
@@ -39,7 +37,7 @@ def parse_page_strong_text(strongs):
             removed_junk.append(white_space_split[0])
             removed_junk.append(white_space_split[1])
 
-            metadata_split = ' '.join(white_space_split[2:-1])
+            metadata_split = ' '.join(white_space_split[2:])
             metadata_split = metadata_split.split("||")
             for j in metadata_split:
                 j = j.strip()
@@ -94,7 +92,7 @@ def create_csv(splits, delim=",",newline="\n"):
     Args:
         splits (list): list of strings for every parsed line
         delim (str, optional): Delimiter for csv. Defaults to ",".
-        newline (str, optional): Newline for csv. Defaults to "\n".
+        newline (str, optional): Newline for csv. Defaults to "\\n".
 
     Returns:
         [str]: csv string. Each row is an exposure event with class. Note: output needs to be validated with the
@@ -106,19 +104,14 @@ def create_csv(splits, delim=",",newline="\n"):
         if len(i) >= 1:
             csv_str += i[0] + delim
         else:
-            csv_str += "null" + delim
-            csv_str += "null" + delim
-            csv_str += "null" + delim
-            csv_str += "null" + delim
-            csv_str += "null" + delim
+            print("debug one")
+            csv_str += 5*("null" + delim)
         
         if len(i) >= 2:
             csv_str += i[1] + delim
         else:
-            csv_str += "null" + delim
-            csv_str += "null" + delim
-            csv_str += "null" + delim
-            csv_str += "null" + delim
+            print("debug two")
+            csv_str += 4*("null" + delim)
 
         if len(i) >= 5:
             has_weekdays = str_contains_only_day_of_week_characters(i[2])
@@ -129,9 +122,7 @@ def create_csv(splits, delim=",",newline="\n"):
                 csv_str += i[3] + delim
                 csv_str += i[4] + delim
             else:
-                csv_str += "null" + delim
-                csv_str += "null" + delim
-                csv_str += "null" + delim
+                csv_str += 3*("null" + delim)
         
         if not str_is_acceptable_time(i[-1]):
             csv_str += i[-1] + newline
@@ -146,7 +137,7 @@ def validate_csv(csv_str, delim=',',newline="\n",quiet_mode=False):
     Args:
         csv_str (str): csv string
         delim (str): Delimiter for csv. Defaults to ','.
-        newline (str): new line for csv. Defaults to "\n".
+        newline (str): new line for csv. Defaults to "\\n".
     """
 
     valid_first_line = f"class_name{delim}code{delim}weekday{delim}start_time{delim}end_time{delim}location"
@@ -214,8 +205,56 @@ def bad_csv_print(list_split, error_message, line_number=None):
         print(f"Bad line in csv: {list_split}. ({error_message}). Removing from csv.")
 
 
+def add_building_code_name_and_location(target_csv, building_map_csv,delim=",",newline="\n"):
+    """Appends a `building_name` and `building_location` field to the end od the target_csv and attemts to match building
+    codes from the building_map_csv to each building
+
+    Args:
+        target_csv (str): string representation of csv. Any format will do as long as the `location` field is the last one
+        building_map_csv (str): string representation of building map csv: `building_code,building_name,_building_location`
+        delim (str, optional): Delimiter for csv file. Defaults to ",".
+        newline (str, optional): newline indicator for csv file. Defaults to "\\n".
+    """
+    class_map_dict = {}
+    building_csv_line = building_map_csv.split(newline)
+    building_csv_line = building_csv_line[1:] # ignore first line (header)
+
+    for i in building_csv_line:
+        elements = i.split(delim)
+        if len(elements) == 3:
+            class_map_dict[elements[0]] = {"Name": elements[1], "Location": elements[2]}
+
+    target_csv_line = target_csv.split(newline)
+
+    # Append new columns to header
+    output_csv = target_csv_line[0][0:]
+    print(output_csv)
+    output_csv += delim + "full_building_name"
+    output_csv += delim + "building_address"
+    output_csv += newline
+
+    target_csv_line = target_csv_line[1:] # ignore header
+    for i in target_csv_line:
+        elements = i.split(delim)
+        building_code = elements[-1]
+        if len(building_code) >= 3 and building_code.lower() != "office" and building_code.lower() != "null":
+            building_code = building_code[0:3].upper()
+        
+        output_csv += i[0:] #Existing elements minus newline
+        if building_code in class_map_dict:
+            output_csv += delim + class_map_dict.get(building_code).get("Name")
+            output_csv += delim + class_map_dict.get(building_code).get("Location")
+            output_csv += newline
+        else:
+            output_csv += 2*(delim + "null")
+            output_csv += newline
+
+    return output_csv
+# ========================================================================================================
+
 if __name__ == "__main__":
-    parsed_html = parse_html_file(PAGE_NAME)
+    # https://sites.google.com/usc.edu/covidnotifications-ay22/home
+    parsed_html = parse_cases_html_file(COVID_PAGE_NAME)
 
     if parsed_html == None: # TODO check if page is empty
         print("Parsed HTML file is empty. Quitting")
@@ -225,8 +264,18 @@ if __name__ == "__main__":
     splits = parse_page_strong_text(strongs)
     unvalidated_csv = create_csv(splits)
     valid_csv = validate_csv(unvalidated_csv,quiet_mode=QUIET_MODE)
+    
+    class_dir_map = ""
+    # read in the building code map csv file
+    with open("building_code_map.csv","r") as csv_reader:
+        class_dir_map = csv_reader.read()
+
+    mapped_csv = add_building_code_name_and_location(valid_csv,class_dir_map)
+
+    # Write the final csv file
     with open(OUTPUT_FILE_NAME,"w") as csv_writer:
-        csv_writer.write(valid_csv)
+        csv_writer.write(mapped_csv)
+
 
 
 
