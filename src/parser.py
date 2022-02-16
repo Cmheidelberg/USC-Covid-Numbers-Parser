@@ -1,6 +1,10 @@
+from cgitb import html
+from turtle import ht
 from bs4 import BeautifulSoup
 from constants import *
-
+from utils import *
+import os
+from datetime import datetime
 
 def parse_cases_html_file(path):
     """Parse the given html file using BeautifulSoup. Return BeautifulSoup object if parsable, None otherwise. 
@@ -136,6 +140,7 @@ def validate_csv(csv_str, delim=',',newline="\n",quiet_mode=False):
         csv_str (str): csv string
         delim (str): Delimiter for csv. Defaults to ','.
         newline (str): new line for csv. Defaults to "\\n".
+        quiet_mode (bool): Dissable printing invalid lines
     """
 
     valid_first_line = f"class_name{delim}code{delim}weekday{delim}start_time{delim}end_time{delim}location"
@@ -251,7 +256,17 @@ def add_building_code_name_and_location(target_csv, building_map_csv,delim=",",n
 
 if __name__ == "__main__":
     # https://sites.google.com/usc.edu/covidnotifications-ay22/home
-    parsed_html = parse_cases_html_file(COVID_PAGE_PATH)
+    
+    menu_title = "Select a file to parse from html"
+    html_pages = [f for f in os.listdir(HTML_FOLER_PATH) if os.path.isfile(os.path.join(HTML_FOLER_PATH,f))]
+    html_pages_path = [os.path.join(HTML_FOLER_PATH,f) for f in os.listdir(HTML_FOLER_PATH) if os.path.isfile(os.path.join(HTML_FOLER_PATH,f))]
+    html_pages = [f"{f} (created: {datetime.utcfromtimestamp(os.stat(os.path.join(HTML_FOLER_PATH,f))[7]).strftime('%m-%d-%Y [UTC]')})" for f in html_pages ]
+    choice = simple_menu_print("Select a file to parse from the /html directory:",html_pages)
+    selected = html_pages_path[choice-1]
+    #print(f"\n Selected page: {selected}")
+
+    print("Parsing html to csv: ",end="",flush=True)
+    parsed_html = parse_cases_html_file(selected)
 
     if parsed_html == None: # TODO check if page is empty
         print("Parsed HTML file is empty. Quitting")
@@ -260,17 +275,47 @@ if __name__ == "__main__":
     strongs = parsed_html.find_all('strong')
     splits = parse_page_strong_text(strongs)
     unvalidated_csv = create_csv(splits)
+    print("Done")
+
+    print("Validating csv...")
     valid_csv = validate_csv(unvalidated_csv,quiet_mode=QUIET_MODE)
-    
-    class_dir_map = ""
-    # read in the building code map csv file
-    with open(BUILDING_CODE_MAP_PATH,"r") as csv_reader:
-        class_dir_map = csv_reader.read()
+    print("Done")
 
-    mapped_csv = add_building_code_name_and_location(valid_csv,class_dir_map)
+    print("\nShould this program try to append building code information to the end of the csv?: [y/n]")
+    choice=input().lower()
+    if choice == "y" or choice == "yes":
+        try:
+            class_dir_map = ""
+            # read in the building code map csv file
+            print(f"Appending building information: (Using: {BUILDING_CODE_MAP_PATH})")
+            with open(BUILDING_CODE_MAP_PATH,"r") as csv_reader:
+                class_dir_map = csv_reader.read()
 
+            mapped_csv = add_building_code_name_and_location(valid_csv,class_dir_map)
+        except Exception as e:
+            print(f"Something went wrong: {e}")
+
+            print("\nSave unmapped building code csv? [y/n]")
+            choice = input()
+            if choice == "y" or choice == "yes":
+                mapped_csv = valid_csv
+            else:
+                exit(0)
+    else:
+        mapped_csv = valid_csv
+
+    print("\nWhat would you like to name the output?")
+    file_name = input()
+
+    # Append .csv to the end if needed
+    tmp = file_name.split('.')
+    if len(tmp) == 1:
+        file_name = file_name + ".csv"
+
+    out_file_full_path = PROJECT_ROOT_PATH / file_name
     # Write the final csv file
-    with open(OUTPUT_FILE_PATH,"w") as csv_writer:
+    print(f"Creating output csv file: (At: {out_file_full_path})")
+    with open(out_file_full_path,"w") as csv_writer:
         csv_writer.write(mapped_csv)
 
 
