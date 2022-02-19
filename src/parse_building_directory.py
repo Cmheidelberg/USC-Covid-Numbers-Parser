@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup
 from constants import *
+from geopy.geocoders import Nominatim
+import numpy as np
+
 
 def parse_page_direcory_html_file(path):
     """Parse the given html file using BeautifulSoup. Return BeautifulSoup object if parsable, None otherwise. 
@@ -30,7 +33,12 @@ if __name__ == "__main__":
         exit()
 
     tables = parsed_html.find_all('tr')
-    csv = "building_code,building_name,building_address\n"
+    csv = "building_code,building_name,building_address,lat,lon\n"
+    
+    geo_success = 0
+    geo_failed = 0
+    geo_total = 0
+
     for t in tables:
         building_code = t.find('th').contents[0].strip().upper()
         
@@ -38,8 +46,29 @@ if __name__ == "__main__":
         building_name = td_split[0].strip()
         building_location = ''.join(td_split[1:]).strip()
 
-        csv += building_code + "," + building_name + "," + building_location + "\n"
+        
+        geolocator = Nominatim(user_agent="my_user_agent")
+        geo_location = geolocator.geocode(building_location + ", Los Angeles, CA")
+        
+        # Try for places out of LA
+        if geo_location is None: 
+            geo_location = geolocator.geocode(building_location)
+
+        if geo_location is not None and len(geo_location) > 0:
+            geo_success += 1
+            print(f"SUCCESS: " + building_location + ", Los Angeles, CA")
+            lat = str(geo_location.latitude)
+            lon = str(geo_location.longitude)
+        else:
+            geo_failed += 1
+            print(f"ERROR:   " + building_location + ", Los Angeles, CA")
+            lat = "null"
+            lon = "null"
+        geo_total += 1
+
+        csv += f"{building_code},{building_name},{building_location},{lat},{lon}\n"
     
+    print(f"Geo Location success rate of {np.round((geo_success/geo_total),2)}% (Successful: {geo_success}, Failed: {geo_failed})")
     # Note: Buildings with commas in location have commas removed here (ie:  "P.O. Box 398, Catalina Island, 90704" becomes "P.O. Box 398 Catalina Island 90704")
     with open(BUILDING_CODE_MAP_PATH,"w") as f:
         f.write(csv)
