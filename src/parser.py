@@ -3,8 +3,6 @@ from turtle import ht
 from bs4 import BeautifulSoup
 from constants import *
 from utils import *
-import os
-from datetime import datetime
 
 def parse_cases_html_file(path):
     """Parse the given html file using BeautifulSoup. Return BeautifulSoup object if parsable, None otherwise. 
@@ -25,13 +23,14 @@ def parse_cases_html_file(path):
 
 
 def parse_page_strong_text(strongs):
-    """Parse the page into a list of lines that contain covid exposures by class
+    """Parse the page into a list of lines that contain covid exposures by class and date
 
     Args:
         strongs (list): List of lines with <strong> elements from the soup class. List should be of str type though.
 
     Returns:
-        [list]: List of valid covid exposure classes with all accompaning data. (ie: ['BUAD-304','14725','MW','18:00','19:50','JFFLL101'])
+        [list]: List of valid covid exposure classes with all accompaning data. 
+                (ie: ['BUAD-304','14725','MW','18:00','19:50','JFFLL101'])
     """
     splits = []
     for i in strongs:
@@ -134,7 +133,8 @@ def create_csv(splits, delim=",",newline="\n"):
 
 
 def validate_csv(csv_str, delim=',',newline="\n",quiet_mode=False):
-    """Reads in csv with possibly invalid rows and returns a csv with invalid rows removed. Prints out invalid lines as they come.
+    """Reads in csv with possibly invalid rows and returns a csv with invalid rows removed. Prints out invalid lines 
+    as they come.
 
     Args:
         csv_str (str): csv string
@@ -189,7 +189,11 @@ def validate_csv(csv_str, delim=',',newline="\n",quiet_mode=False):
         if line_valid:
             l = listify[i]
             els = l.split(delim)
-            outp += els[0] + delim +els[1] + delim + els[2] + delim + els[3] + delim + els[4] + delim + els[5] + newline;
+            for i,o in enumerate(els):
+                if i+1 != len(els):
+                    outp += o + delim
+                else:
+                    outp += o + newline
 
     return outp
     
@@ -213,8 +217,9 @@ def add_building_code_name_and_location(target_csv, building_map_csv,delim=",",n
     codes from the building_map_csv to each building
 
     Args:
-        target_csv (str): string representation of csv. Any format will do as long as the `location` field is the last one
-        building_map_csv (str): string representation of building map csv: `building_code,building_name,_building_location`
+        target_csv (str): string representation of csv. Any format will do as long as the `location` field is the 
+        last one building_map_csv (str): string representation of building map csv: `building_code,building_name,
+        building_location`
         delim (str, optional): Delimiter for csv file. Defaults to ",".
         newline (str, optional): newline indicator for csv file. Defaults to "\\n".
     """
@@ -266,13 +271,15 @@ def add_building_code_name_and_location(target_csv, building_map_csv,delim=",",n
 if __name__ == "__main__":
     # https://sites.google.com/usc.edu/covidnotifications-ay22/home
     
+
+    # Ask user which file they want to open
     menu_title = "Select a file to parse from html"
-    html_pages = [f for f in os.listdir(HTML_FOLER_PATH) if os.path.isfile(os.path.join(HTML_FOLER_PATH,f))]
-    html_pages_path = [os.path.join(HTML_FOLER_PATH,f) for f in os.listdir(HTML_FOLER_PATH) if os.path.isfile(os.path.join(HTML_FOLER_PATH,f))]
-    html_pages = [f"{f} (created: {datetime.utcfromtimestamp(os.stat(os.path.join(HTML_FOLER_PATH,f))[7]).strftime('%m-%d-%Y [UTC]')})" for f in html_pages ]
+    html_pages = [f for f in listdir(HTML_FOLER_PATH) if isfile(pjoin(HTML_FOLER_PATH,f))]
+    html_pages_path = [pjoin(HTML_FOLER_PATH,f) for f in listdir(HTML_FOLER_PATH) if isfile(pjoin(HTML_FOLER_PATH,f))]
+
+    html_pages = [f"{f} (created: {get_created_string(f)})" for f in html_pages ]
     choice = simple_menu_print("Select a file to parse from the /html directory:",html_pages)
     selected = html_pages_path[choice-1]
-    #print(f"\n Selected page: {selected}")
 
     print("Parsing html to csv: ",end="",flush=True)
     parsed_html = parse_cases_html_file(selected)

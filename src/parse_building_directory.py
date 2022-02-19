@@ -68,7 +68,9 @@ if __name__ == "__main__":
 
         csv += f"{building_code},{building_name},{building_location},{lat},{lon}\n"
     
-    print(f"Geo Location success rate of {np.round((geo_success/geo_total),2)}% (Successful: {geo_success}, Failed: {geo_failed})")
-    # Note: Buildings with commas in location have commas removed here (ie:  "P.O. Box 398, Catalina Island, 90704" becomes "P.O. Box 398 Catalina Island 90704")
+    print(f"Geo Location success rate of "\
+        "{100*np.round((geo_success/geo_total),2)}% (Successful: {geo_success}, Failed: {geo_failed})")
+    # Note: Buildings with commas in location have commas removed here (ie:  "P.O. Box 398, Catalina Island,
+    # 90704" becomes "P.O. Box 398 Catalina Island 90704")
     with open(BUILDING_CODE_MAP_PATH,"w") as f:
         f.write(csv)
