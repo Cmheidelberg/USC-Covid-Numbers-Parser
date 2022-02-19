@@ -221,35 +221,44 @@ def add_building_code_name_and_location(target_csv, building_map_csv,delim=",",n
     class_map_dict = {}
     building_csv_line = building_map_csv.split(newline)
     building_csv_line = building_csv_line[1:] # ignore first line (header)
-
-    for i in building_csv_line:
-        elements = i.split(delim)
-        if len(elements) == 3:
-            class_map_dict[elements[0]] = {"Name": elements[1], "Location": elements[2]}
-
     target_csv_line = target_csv.split(newline)
 
     # Append new columns to header
-    output_csv = target_csv_line[0][0:]
-    output_csv += delim + "full_building_name"
-    output_csv += delim + "building_address"
-    output_csv += newline
+    output_csv = target_csv_line[0][0:] # target csv header
+    building_map_csv_header_list = building_map_csv.split(newline)[0].split(delim)
+    building_map_csv_header = building_map_csv_header_list[1:]
+    building_map_csv_header = delim.join(building_map_csv_header)
+    output_csv += building_map_csv_header + newline
+
+    # create dict associating building code with csv information
+    for i in building_csv_line:
+        elements = i.split(delim)
+        building_csv = delim.join(elements[1:])
+        if len(elements[0]) > 1:
+            class_map_dict[elements[0]] = building_csv
 
     target_csv_line = target_csv_line[1:] # ignore header
+
+    # for each line of the target csv
     for i in target_csv_line:
-        elements = i.split(delim)
-        building_code = elements[-1]
-        if len(building_code) >= 3 and building_code.lower() != "office" and building_code.lower() != "null":
-            building_code = building_code[0:3].upper()
         
-        output_csv += i[0:] #Existing elements minus newline
-        if building_code in class_map_dict:
-            output_csv += delim + class_map_dict.get(building_code).get("Name")
-            output_csv += delim + class_map_dict.get(building_code).get("Location")
-            output_csv += newline
-        else:
-            output_csv += 2*(delim + "null")
-            output_csv += newline
+        if len(i) > 1: # Ignore empty lines
+            elements = i.split(delim)
+            building_code = elements[-1]
+
+            # Get building code information from last line of target csv
+            if len(building_code) >= 3 and building_code.lower() != "office" and building_code.lower() != "null":
+                building_code = building_code[0:3].upper()
+            else:
+                building_code = "No building code found"
+
+            output_csv += i[0:] #Existing elements minus newline
+            if building_code in class_map_dict:
+                output_csv += delim + class_map_dict.get(building_code)
+                output_csv += newline
+            else:
+                output_csv += (len(building_map_csv_header_list)-1)*(delim + "null")
+                output_csv += newline
 
     return output_csv
 # ========================================================================================================
