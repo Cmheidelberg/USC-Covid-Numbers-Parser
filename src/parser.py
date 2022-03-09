@@ -21,6 +21,8 @@ def parse_cases_html_file(path):
         print(f"Could not find the html file: {path}")
         return None
 
+# def parse_page_div_text(divs):
+#     div_with_most_paragraphs = 
 
 def parse_page_strong_text(strongs):
     """Parse the page into a list of lines that contain covid exposures by class and date
@@ -85,7 +87,21 @@ def str_is_acceptable_time(input_string):
         return True
     
     return False
-        
+
+def str_is_acceptable_characters(input_string):
+    """Check if the stirng contains only valid askii characters (between 32 and 126)
+
+    Args:
+        input_string (str): input string to check 
+
+    Returns:
+        boolean: True if valid. False if invalid.
+    """
+    for c in input_string:
+        o = ord(c)
+        if o < 32 or o > 126:
+            return False
+    return True
 
 def create_csv(splits, delim=",",newline="\n"):
     """Create a csv file from the splits of every parsed line. Attempt to make each line have the same number of 
@@ -156,35 +172,47 @@ def validate_csv(csv_str, delim=',',newline="\n",quiet_mode=False):
     for i in range(1,len(listify)-1):
         line_valid = True
         split = listify[i].split(delim)
+        
+        # Validate row has all columns
         if len(split) != 6:
             line_valid = False
             if not quiet_mode:
                 bad_csv_print(split,"invalid length",i)
         
+        # Validate first row (class name) has name + code hyphen sep
         elif len(split[0].split("-")) != 2:
             line_valid = False
             if not quiet_mode:
                 bad_csv_print(split, "Invalid class field",i)
 
+        # Validate chass code is strictly numeric
         elif not split[1].isnumeric():
             line_valid = False
             if not quiet_mode:
                 bad_csv_print(split, "Class ID not numeric",i)
         
+        # Validate days of week contain only day of the week characters
         elif not str_contains_only_day_of_week_characters(split[2]) and not split[2].lower() == "null":
             line_valid = False
             if not quiet_mode:
                 bad_csv_print(split, "Day of week field invalid",i)
 
+        # Check start timestamp is valid
         elif not str_is_acceptable_time(split[3]) and not split[3].lower() == "null":
             line_valid = False
             if not quiet_mode:
                 bad_csv_print(split, "Start time invalid",i)
 
+        # Check end timestamp is valid
         elif not str_is_acceptable_time(split[4]) and not split[4].lower() == "null":
             line_valid = False
             if not quiet_mode:
                 bad_csv_print(split, "End time invalid",i)
+
+        elif not str_is_acceptable_characters(split[5]):
+            line_valid = False
+            if not quiet_mode:
+                bad_csv_print(split, "Location is not alphanumeric", i) 
 
         if line_valid:
             l = listify[i]
@@ -213,8 +241,8 @@ def bad_csv_print(list_split, error_message, line_number=None):
 
 
 def add_building_code_name_and_location(target_csv, building_map_csv,delim=",",newline="\n"):
-    """Appends a `building_name` and `building_location` field to the end od the target_csv and attemts to match building
-    codes from the building_map_csv to each building
+    """Appends a `building_name` and `building_location` field to the end od the target_csv and attemts to match 
+    building codes from the building_map_csv to each building
 
     Args:
         target_csv (str): string representation of csv. Any format will do as long as the `location` field is the 
@@ -290,6 +318,7 @@ if __name__ == "__main__":
 
     strongs = parsed_html.find_all('strong')
     splits = parse_page_strong_text(strongs)
+    
     unvalidated_csv = create_csv(splits)
     print("Done")
 
@@ -304,6 +333,7 @@ if __name__ == "__main__":
             class_dir_map = ""
             # read in the building code map csv file
             print(f"Appending building information: (Using: {BUILDING_CODE_MAP_PATH})")
+            print("Appending building information: (Using: {})".format(BUILDING_CODE_MAP_PATH))
             with open(BUILDING_CODE_MAP_PATH,"r") as csv_reader:
                 class_dir_map = csv_reader.read()
 

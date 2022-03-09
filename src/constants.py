@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # Folder Names
-CSV_FOLDER_NAME = "csv"
+CSV_FOLDER_NAME = "data"
 HTML_FOLDER_NAME = "html"
 
 # Folder Paths
