@@ -48,8 +48,8 @@ if __name__ == "__main__":
 
         
         geolocator = Nominatim(user_agent="my_user_agent")
-        geo_location = geolocator.geocode(building_location + ", Los Angeles, CA")
-        
+        geo_location = geolocator.geocode(building_location + ", Los Angeles, CA", geometry ="svg")
+
         # Try for places out of LA
         if geo_location is None: 
             geo_location = geolocator.geocode(building_location)
@@ -57,6 +57,7 @@ if __name__ == "__main__":
         if geo_location is not None and len(geo_location) > 0:
             geo_success += 1
             print(f"SUCCESS: " + building_location + ", Los Angeles, CA")
+            print(geo_location.raw)
             lat = str(geo_location.latitude)
             lon = str(geo_location.longitude)
         else:

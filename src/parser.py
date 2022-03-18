@@ -166,7 +166,7 @@ def validate_csv(csv_str, delim=',',newline="\n",quiet_mode=False):
         print(f"Given: {listify[0]}")
         print(f"Expected: {valid_first_line}")
         print("Error: first line of csv must be valid header. Aborting.")
-        exit(0)
+        sys.exit()
 
     outp = listify[0] + newline
     for i in range(1,len(listify)-1):
@@ -225,21 +225,6 @@ def validate_csv(csv_str, delim=',',newline="\n",quiet_mode=False):
 
     return outp
     
-
-def bad_csv_print(list_split, error_message, line_number=None):
-    """Print bad csv line error
-
-    Args:
-        list_split (str): list of the currently erronious line
-        error_message (str): message explaining the reson for this lines removal
-        line_number (int, optional): line number of the removed element. Defaults to None.
-    """
-    if line_number is not None:
-        print(f"Bad element on line {line_number}: {list_split}. ({error_message}). Removing from csv.")
-    else:
-        print(f"Bad line in csv: {list_split}. ({error_message}). Removing from csv.")
-
-
 def add_building_code_name_and_location(target_csv, building_map_csv,delim=",",newline="\n"):
     """Appends a `building_name` and `building_location` field to the end od the target_csv and attemts to match 
     building codes from the building_map_csv to each building
@@ -306,7 +291,7 @@ if __name__ == "__main__":
     html_pages_path = [pjoin(HTML_FOLDER_PATH,f) for f in listdir(HTML_FOLDER_PATH) if isfile(pjoin(HTML_FOLDER_PATH,f))]
 
     html_pages = [f"{f} (created: {get_created_string(HTML_FOLDER_PATH,f)})" for f in html_pages ]
-    choice = simple_menu_print("Select a file to parse from the /html directory:",html_pages)
+    choice = simple_menu_print(f"Select a file to parse from the /{HTML_FOLDER_NAME} directory:",html_pages)
     selected = html_pages_path[choice-1]
 
     print("Parsing html to csv: ",end="",flush=True)
@@ -314,7 +299,7 @@ if __name__ == "__main__":
 
     if parsed_html == None: # TODO check if page is empty
         print("Parsed HTML file is empty. Quitting")
-        exit()
+        sys.exit()
 
     strongs = parsed_html.find_all('strong')
     splits = parse_page_strong_text(strongs)
@@ -323,7 +308,7 @@ if __name__ == "__main__":
     print("Done")
 
     print("Validating csv...")
-    valid_csv = validate_csv(unvalidated_csv,quiet_mode=QUIET_MODE)
+    valid_csv = validate_csv(unvalidated_csv,quiet_mode = not VERBOSE)
     print("Done")
 
     print("\nShould this program try to append building code information to the end of the csv?: [y/n]")
@@ -346,7 +331,7 @@ if __name__ == "__main__":
             if choice == "y" or choice == "yes":
                 mapped_csv = valid_csv
             else:
-                exit(0)
+                sys.exit()
     else:
         mapped_csv = valid_csv
 

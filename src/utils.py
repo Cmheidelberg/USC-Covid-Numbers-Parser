@@ -1,3 +1,4 @@
+import sys
 import os
 from datetime import datetime
 from constants import *
@@ -52,3 +53,16 @@ def isfile(path):
 def listdir(path):
     """Return a list of all the files/directories under a given path"""
     return os.listdir(path)
+
+def bad_csv_print(list_split, error_message, line_number=None):
+    """Print bad csv line error
+
+    Args:
+        list_split (str): list of the currently erronious line
+        error_message (str): message explaining the reson for this lines removal
+        line_number (int, optional): line number of the removed element. Defaults to None.
+    """
+    if line_number is not None:
+        print(f"Bad element on line {line_number}: {list_split}. ({error_message}). Removing from csv.")
+    else:
+        print(f"Bad line in csv: {list_split}. ({error_message}). Removing from csv.")
