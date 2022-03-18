@@ -5,7 +5,7 @@ ABX,Anna Bing Arnold Child Care Ctr. Annex,2716 Severance St. 90007,34.029082373
 ACB,Ahmanson Ctr. for Biological Research,825 Bloom Walk,34.0193619,-118.28691846895353
 ACC,Accounting,Leventhal School of 3660 Trousdale Pkwy.,34.01915685,-118.28556796132531
 ACX,Ahmanson Ctr. for Biological Research Animal Section,825 Bloom Walk,34.0193619,-118.28691846895353
-ADM,George Finley Bovard Administration Bldg. and Kenneth Norris,Jr. Aud. 3551 Trousdale Pkwy.,null,null
+ADM,George Finley Bovard Administration Bldg. and Kenneth Norris,Jr. Aud. 3551 Trousdale Pkwy.,34.0206781,-118.2850875
 ADX,Alpha Delta Chi House,725-731 W. 32nd St.,33.7151601,-118.2871282
 AES,Alice and Eleonore Schoenfeld Symphonic Hall,3450 Watt Way,34.0228111,-118.28560771536152
 AGO,Gamma Epsilon Omega fraternity,2831 University Ave.,34.027537333333335,-118.28128748484849
@@ -15,24 +15,21 @@ ALM,Alumni House,Widney 635 Childs Way,34.01958905,-118.28282761155322
 ANH,Annenberg House,711 W. 27th St.,34.02808311111111,-118.27867577777778
 ANN,Wallis Annenberg Hall,3630 Watt Way,34.020776100000006,-118.28702426020322
 ASC,Annenberg School for Communication and Journalism,3502 Watt Way,34.02199795,-118.28621684001078
-ATM,At Mateo,1262 Palmetto St. Ste. 515,null,null
+ATM,At Mateo,1262 Palmetto St. Ste. 515,34.04007,-118.2335422
 BAA,Bel-Aire Apts.,1124 W. 29th St.,34.028106550000004,-118.28468299382212
 BAB,Barracks A & B,1200 N. State St.,34.05818038383838,-118.20979694949496
 BAR,Barlow Hospital,2000 Stadium Way,34.0758442,-118.2481296
 BCC,Eli and Edythe Broad CIRM Center for Regenerative Medicine and Stem Cell Research,1425 San Pablo St.,34.06167657575757,-118.20346166666667
-BCH,Boone Center Housing,10317-10343 W. Big Fishermans Cove Catalina Island,null,null
-BDF,Brooks Memorial Pavilion and Dedeaux Field,1021 Childs Way,34.02232151020408,-118.28958251020407
+BCH,Boone Center Housing,10317-10343 W. Big Fishermans Cove Catalina Island,33.44536678630327,-118.48009382968904
 BHE,Biegler Hall of Engineering,920 Downey Way,34.02053755,-118.28853780337589
-BIM,Brittingham Intramural Field,3506 McClintock Ave.,34.02336779591837,-118.2879745510204
 BIT,Bing Theatre,3500 Watt Way,34.021273,-118.287114
-BKF,Brian Kennedy Field,3515 McClintock Ave.,34.0220063,-118.2890524
 BKS,Pertusati University Bookstore,840 Childs Way,34.020748142857144,-118.28645457142858
 BMH,Booth Ferris Rehearsal Hall,820 W. 34th St.,34.0226434,-118.2848027171458
 BMP,Burbank Medical Plaza #2,191 S. Buena Vista St. #310 Burbank,34.159946081632654,-118.32905726530612
 BMT,Bishop Medical Teaching and Research Bldg.,1333 San Pablo St.,34.060095177500465,-118.20426560609182
 BRI,Barrack Hall,3670 Trousdale Pkwy.,34.018844200000004,-118.28577094826521
 BSR,Birnkrant Residential College,642 W. 34th St.,34.02160385714286,-118.28182885714286
-CAB,CMSC Administration Bldg.,P.O. Box 398 Catalina Island 90704,null,null
+CAB,CMSC Administration Bldg.,P.O. Box 398 Catalina Island 90704,33.44454820955747,-118.48200892692567
 CAL,Carole Little Bldg.,3434 S. Grand Ave.,34.0283216,-118.2711155
 CAP,Century Apts.,3115 S. Orchard Ave.,33.8838497,-118.2881154
 CAR,Cardinal Gardens,3131 S. McClintock Ave.,42.816427,-70.893133
@@ -41,12 +38,12 @@ CBB,Century Boulevard Building,6033 Century Blvd. #920 Los Angeles,33.945193,-11
 CBG,University Gardens Apts.,1250 W. Jefferson Blvd.,34.025417857142855,-118.29303628571428
 CCC,Health Sciences Child Care Ctr.,2250 Alcazar St.,34.06316161921298,-118.19989713799859
 CDF,Campus Development & Facilities Bldg.,3434 Grand Ave.,34.13135668861464,-117.70280553706048
-CEM,Ctr. for Electron Microscopy and Microanalysis,814 W. Bloom Walk,null,null
+CEM,Ctr. for Electron Microscopy and Microanalysis,814 W. Bloom Walk,34.0194241,-118.287944
 CEN,Centennial Apts.,2390 Portland St.,34.03141340816326,-118.28242085714285
 CHP,Ctr. for Health Professions,1540 Alcazar St.,34.06342041357677,-118.2033382769042
 CIC,Jessica and Charles Cale and Ray Irani Residential College,929 W. Jefferson Blvd.,34.0249095,-118.285111
 CLH,College House,823 W. 34th St.,34.0231455,-118.28456566882866
-CNG,Cardinal ’N Gold,737 W. 30th St.,34.0265192,-118.28057446540816
+CNG,Cardinal ï¿½N Gold,737 W. 30th St.,34.0265192,-118.28057446540816
 COH,Cockins House,2653 S. Hoover St.,34.0078132,-118.287227
 COL,College Residence Hall,615 W. McCarthy Way,null,null
 CPA,The Center for International and Public Affairs,3518 Trousdale Pkwy.,34.02116275,-118.28372242913925
@@ -55,16 +52,15 @@ CRL,Cancer Research Laboratory,1303 Mission Rd.,34.06292065306123,-118.211099224
 CSA,Clinical Sciences Annex,2250 Alcazar St.,34.06316161921298,-118.19989713799859
 CSC,Clinical Science Ctr.,2250 Alcazar St.,34.06316161921298,-118.19989713799859
 CST,CAD Services Trailer,Berth 194 Yacht St. Wilmington,null,null
-CTF,Colich Track and Field Center,3564 McClintock Avenue,34.02299848979592,-118.28821187755102
 CTV,Carson Television Ctr.,3450 Watt Way,34.0228111,-118.28560771536152
 CUB,Credit Union Building,3720 S. Flower St.,34.01671232653061,-118.2818123877551
 DCC,Davidson Continuing Education Conference Ctr.,3415 S. Figueroa St.,33.7833185,-118.280348
 DEN,Norris Dental Science Ctr.,925 W. 34th St.,34.024026649999996,-118.28640738058533
-DML,Doheny Memorial Library,3550 Trousdale Pkwy.,34.020367,-118.28506
+DML,Doheny Memorial Library,3550 Trousdale Pkwy.,34.020152,-118.283728
 DMT,Marks Tower,612 W. Hellman Way,null,null
 DNI,Dornsife Neuroscience Imaging Center,3620-A McClintock Ave.,34.0220063,-118.2890524
 DOH,Estelle Doheny Eye Foundation,1355 San Pablo St.,34.0609725,-118.20412899339547
-DRB,Denney Research Ctr.,1042 Downey Way,34.020589383838384,-118.28839369696969
+DRB,Denney Research Ctr.,1042 Downey Way,34.021415,-118.291155
 DRC,Drama Ctr.,1029-33 Childs Way,34.0226398,-118.2904971
 DXM,Marks Residence Hall,David X. 631 W. Childs Way,null,null
 ECT,Early Childhood Training Ctr.,741 W. 27th St.,34.02831523232323,-118.2791988080808
@@ -87,7 +83,7 @@ GEC,Galen Event Center,3400 S. Figueroa St.,33.7833185,-118.280348
 GEH,Max Kade Ctr. I,2714 S. Hoover St.,34.0078132,-118.287227
 GER,Gerontology Ctr.,Andrus 3715 McClintock Ave.,34.0202376,-118.29047024114405
 GEX,Max Kade Ctr. II,2718 S. Hoover St.,34.0078132,-118.287227
-GFS,Grace Ford Salvatori Hall of Letters,Arts and Sciences 3601 Watt Way,null,null
+GFS,Grace Ford Salvatori Hall of Letters,Arts and Sciences 3601 Watt Way,34.021295,-118.288030
 GLB,General Labs Bldg.,1801 Marengo St.,34.05873630769231,-118.21202907692307
 GNH,County General Hospital,1937 Hospital Pl.,32.37461918181818,-99.7480309090909
 GPC,Golf Practice Course,1021 Childs Way,34.02232151020408,-118.28958251020407
@@ -102,7 +98,6 @@ HED,HEDCO Petroleum & Chemical Engineering Bldg.,925 Bloom Walk,34.0202624489795
 HER,Heritage Hall,3501 Watt Way,34.02276291919192,-118.28639560606061
 HHR,Honors House,2710 Severance St.,34.02913888888889,-118.28151644444445
 HIL,Hillview Apts.,2605 Severance St.,34.03021432323232,-118.28105597979797
-HJF,Howard Jones Football Practice Field,3515 McClintock Ave.,34.0220063,-118.2890524
 HMR,Hoffman Medical Research Ctr.,2011 Zonal Ave.,34.06030582191781,-118.20638190410959
 HNB,HEDCO Neurosciences Bldg.,3641 Watt Way,34.019808,-118.288315
 HOH,Hoffman Hall of Business Administration,701 Exposition Blvd.,34.018786500000004,-118.28521267127178
@@ -111,7 +106,6 @@ HRA,Health Research Assn.,1640 Marengo St.,34.05988801891235,-118.21383509353132
 HRH,Harris Residence Hall,634 W. 34th St.,34.021503693877555,-118.28161040816326
 HSA,Health Sciences Alhambra,1000 S. Fremont Ave. Alhambra CA,34.083937,-118.151796
 HSH,Hazel and Stanley Hall Financial Services Bldg.,851 Downey Way,34.0203986,-118.28712477041884
-HSP,Health Sciences Campus Parking Structure,1334 Biggy St.,34.060935202020204,-118.20680991919193
 HUC,Hebrew Union College,3077 University Ave.,34.0261321010101,-118.28222395959595
 IFT,Ickovics Family Trust Bldg. Fine Arts,3001 S. Flower St.,34.024419,-118.276905
 IRC,Internationally Themed Residential College,3771 McClintock Ave.,34.019979142857146,-118.29043242857142
@@ -141,7 +135,7 @@ LHI,Donald P. and Katherine B. Loker Hydrocarbon Inst.,837 Bloom Walk,34.0196220
 LJS,Laird J. Stabler Memorial Hall,840 Downey Way,34.01967525,-118.2864940846109
 LRC,General William Lyon University Ctr.,1026 W. 34th St.,34.02440595,-118.28842677721451
 LTS,Katherine B. Loker Track Stadium,3550 McClintock Ave.,34.02308763265306,-118.28815459183673
-LVL,Thomas and Dorothy Leavey Library,650 W. McCarthy Way,null,null
+LVL,Thomas and Dorothy Leavey Library,650 W. McCarthy Way,34.021762,-118.282898
 MAB,Manor Apts.,2636 Portland St.,34.030381909090906,-118.28230081818181
 MBC,MacDonald Becket Center,850 W. Bloom Walk,null,null
 MCA,McKibben Addition,1333 San Pablo St.,34.060095177500465,-118.20426560609182
@@ -193,7 +187,7 @@ PVT,Playa Vista Bldg. Two,12025 Waterfront Dr. Playa Vista,33.98282191147892,-11
 RAN,Hoffman Contracts Research Bldg.,3716 S. Hope St.,34.016712612244895,-118.27947410204081
 RGA,Regent Apts.,1138 W. 29th St.,34.0281356,-118.28505895
 RGL,Ralph and Goldy Lewis Hall,650 Childs Way,34.01926105,-118.28354449358193
-RHM,Ramo Hall of Music,830 W. 34th St.,34.022837693877555,-118.28451765306123
+RHM,Ramo Hall of Music,830 W. 34th St.,34.022635,-118.285212
 RRB,Rapp Engineering Research Bldg.,854 Downey Way,34.020015900000004,-118.28752414024123
 RRI,Ray R. Irani Hall,1050 Childs Way,34.02220285,-118.2902712051948
 RTA,Regal Trojan Apts.,870 W. Adams Blvd.,34.03059882352941,-118.28170523529413
@@ -214,18 +208,15 @@ SCS,School of Cinematic Arts Station,639 W. 32nd St.,34.023880346938775,-118.279
 SCT,USC Building Two,1150 S. Olive St.,34.03939855,-118.26134413225881
 SCX,School of Cinematic Arts Bldg. D,915 W. 35th St.,34.0231943,-118.28680021397273
 SGA,Seven Gables Apts.,620-626 W. 30th St.,34.0273949,-118.3194279
-SGM,Seeley G. Mudd Bldg.,3620 McClintock Ave.,34.02150685,-118.28894375897403
+SGM,Seeley G. Mudd Bldg.,3620 McClintock Ave.,34.021482,-118.289002
 SHN,Stevens Hall Neuroimaging,2025 Zonal Ave.,34.06022105479452,-118.20618926027397
-SHP,Shrine Parking Structure,645 W. Jefferson Blvd.,34.022509816134466,-118.28095282481283
 SHS,Stauffer Hall of Science,835 Bloom Walk,34.01941806122449,-118.287477
 SIE,Sierra Apts.,2638 Portland St.,34.03036307070707,-118.2823128080808
 SKS,Steven and Kathryn Sample Hall,3607 Trousdale Pkwy.,34.019737375,-118.285719875
 SLH,Stauffer Science Lecture Hall,831 Bloom Walk,34.01944887755102,-118.287553
-SMF,Soni-McAlister Field,3000 S. Hoover St.,34.027299,-118.283858
 SNA,Senator Apts.,1101-1109 W. 28th St.,34.0261626,-118.2761688
 SOS,Social Science Bldg.,3502 Trousdale Pkwy.,34.02158105,-118.28376335
 SPA,Shrine Place Apartments,3015-3017 Shrine Pl.,34.0249896,-118.2801875
-SPS,San Pablo Parking Structure,1630 N. San Pablo St.,34.0622576,-118.2031988
 SRH,Seaver Residence Hall,1969 Zonal Ave.,34.06056012328767,-118.20695983561643
 SSA,Severance St. Apts.,2630 Severance St.,34.029892424242426,-118.28103684848485
 SSB,Soto Street Building,2001 N. Soto St.,34.5534061,-112.2399242
@@ -256,7 +247,6 @@ TYL,Tyler Bldg.,3601 S. Flower St.,34.018409,-118.280716
 UAC,Uytengsu Aquatics Center,3441 McClintock Ave.,34.02399673469388,-118.28779720408163
 UGB,University Gardens Building,3500 S. Figueroa St.,33.7833185,-118.280348
 UGW,University Gateway,3335 S. Figueroa St.,33.9416448,-118.2826206
-UHP,University Hosp. Parking,1538 San Pablo St.,34.06274106060606,-118.20288533333333
 UHR,USC Restaurant,3520 S. Figueroa St.,33.7833185,-118.280348
 UNH,USC University Hosp.,1500 San Pablo St.,34.0627257,-118.20188823929675
 UPX,Grand Avenue Structure,3401 S. Grand Ave.,34.0283216,-118.2711155
