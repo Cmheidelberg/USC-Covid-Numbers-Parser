@@ -37,9 +37,9 @@ def simple_menu_print(menu_title, options_list, help_text=""):
         else:
             print("Input must be a number\n")
 
-def get_created_string(f):
+def get_created_string(path,f):
     """Return formatted datetime of when the given file was created (month day year)"""
-    return datetime.utcfromtimestamp(os.stat(os.path.join(HTML_FOLER_PATH,f))[7]).strftime('%m-%d-%Y [UTC]')
+    return datetime.utcfromtimestamp(os.stat(os.path.join(path,f))[7]).strftime('%m-%d-%Y [UTC]')
 
 def pjoin(path1, path2):
     """Return os.path.join of path1 and path2"""
