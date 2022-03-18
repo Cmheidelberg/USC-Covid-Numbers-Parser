@@ -302,10 +302,10 @@ if __name__ == "__main__":
 
     # Ask user which file they want to open
     menu_title = "Select a file to parse from html"
-    html_pages = [f for f in listdir(HTML_FOLER_PATH) if isfile(pjoin(HTML_FOLER_PATH,f))]
-    html_pages_path = [pjoin(HTML_FOLER_PATH,f) for f in listdir(HTML_FOLER_PATH) if isfile(pjoin(HTML_FOLER_PATH,f))]
+    html_pages = [f for f in listdir(HTML_FOLDER_PATH) if isfile(pjoin(HTML_FOLDER_PATH,f))]
+    html_pages_path = [pjoin(HTML_FOLDER_PATH,f) for f in listdir(HTML_FOLDER_PATH) if isfile(pjoin(HTML_FOLDER_PATH,f))]
 
-    html_pages = [f"{f} (created: {get_created_string(HTML_FOLER_PATH,f)})" for f in html_pages ]
+    html_pages = [f"{f} (created: {get_created_string(HTML_FOLDER_PATH,f)})" for f in html_pages ]
     choice = simple_menu_print("Select a file to parse from the /html directory:",html_pages)
     selected = html_pages_path[choice-1]
 
