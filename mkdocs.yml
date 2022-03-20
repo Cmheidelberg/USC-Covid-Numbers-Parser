@@ -1,0 +1,23 @@
+site_name: USC COVID Data Parser
+nav:
+  - Home: index.md
+  - Data folder: data.md
+  - Docs folder: docs.md
+  - HTML folder: html.md
+  - Src folder (code): 
+    - 'parser.py': 'code/parser.md'
+    - 'parse_building_directory.py': 'code/parse_building_directory.md'
+    - 'map_building_code_to_outline': 'code/map_building_code_to_outline.md'
+    - 'constants.py': 'code/constants.md'
+    - 'utils.py': 'code/utils.md'
+  - Glossary: glossary.md
+
+theme:
+  name: material
+  logo: images/covid-logo.png
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
