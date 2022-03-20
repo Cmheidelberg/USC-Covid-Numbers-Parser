@@ -1,5 +1,3 @@
-from cgitb import html
-from turtle import ht
 from bs4 import BeautifulSoup
 from constants import *
 from utils import *

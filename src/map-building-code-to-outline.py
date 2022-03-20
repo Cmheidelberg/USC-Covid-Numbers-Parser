@@ -1,4 +1,3 @@
-from soupsieve import closest
 from constants import *
 from utils import *
 import geojson
