@@ -1,6 +1,6 @@
 # USC COVID NUMBERS PARSER
 
-## Installation
+# Installation
 
 The code can be cloned from GitHub at: `https://github.com/Cmheidelberg/USC-Covid-Numbers-Parser`.
 
@@ -10,7 +10,19 @@ There are some dependancies which can be installed using `pip`:
 
 2. [geojson](https://pypi.org/project/geojson/) is used for reading and creating geojson files. These files are able to be imported into software such as CARTO for data visualization.
 
-## Directory structure
+
+# Directory structure
+
+#### Directory structure tree:
+```
+USC-Covid-Data-Parser 
+├── data       
+├── docs       
+├── html       
+└── src
+```
+
+#### Descriptions:
 
 - `/data`: any internal data used by the program. By default any data the program needs should be included when you clone the repository.
 

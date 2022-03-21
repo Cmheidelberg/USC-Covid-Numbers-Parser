@@ -1,18 +1,9 @@
+# USC COVID Data Parser
 
-### Additional features
+To install simply clone this repository: `git clone git@github.com:Cmheidelberg/USC-Covid-Numbers-Parser.git`
 
-Since it is hard to do meaningful analysis on this data alone additional features have been added to enrich the output data. There is also an option to append building address to the end of the csv. This adds another two columns to each row of the csv with the full buiding name and street address. Since this process is automatic it is not perfect, any buildings who's address cannot be resolved will be entered as `null`.
+Full documentation is available on github pages: `https://cmheidelberg.github.io/USC-Covid-Numbers-Parser/`
 
-Example of csv with appended location data
-```
-class_name,code,weekday,start_time,end_time,location,full_building_name,building_address
-ACCT-410,14006,MW,10:00,11:50,JFF241,Jill and Frank Fertitta Hall,610 Childs Way
-ACCT-416,14105,MW,14:00,15:50,ACC310,Accounting,Leventhal School of 3660 Trousdale Pkwy.
-...
-```
+### Summary
 
-| Column name         | description                                                      |
-| ------------------- | ---------------------------------------------------------------- | 
-| full_building_name  | Full name of building as presented on the USC building directory | 
-| building_address    | Building address as presented on the USC building directory      |
-
+This project is designed to parse the raw html from the USC COVID data page and convert it in a more usable csv. The end goal is to have the data in a way that it can be analyzerd to show a heatmap of covid hotspots on campus over time using either built in python data visualization options such as geopandas, or 3rd party visualization suites such as CARTO. 
