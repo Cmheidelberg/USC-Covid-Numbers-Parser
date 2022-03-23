@@ -2,7 +2,7 @@
 
 To install simply clone this repository: `git clone git@github.com:Cmheidelberg/USC-Covid-Numbers-Parser.git`
 
-Full documentation is available on github pages: `https://cmheidelberg.github.io/USC-Covid-Numbers-Parser/`
+Full documentation is available on github pages: [https://cmheidelberg.github.io/USC-Covid-Numbers-Parser/](https://cmheidelberg.github.io/USC-Covid-Numbers-Parser/)
 
 ### Summary
 
