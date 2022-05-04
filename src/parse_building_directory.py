@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 from constants import *
 from geopy.geocoders import Nominatim
-import numpy as np
 
 
 def parse_page_direcory_html_file(path):
