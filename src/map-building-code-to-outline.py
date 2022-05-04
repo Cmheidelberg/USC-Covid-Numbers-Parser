@@ -1,3 +1,4 @@
+from difflib import SequenceMatcher
 from constants import *
 from utils import *
 import geojson
@@ -42,27 +43,67 @@ def validate_building_code_map_file(building_map_csv,delim=',', newline="\n" ,qu
                         bad_csv_print(cols,f"invalid longitude value: \"{cols[4]}\"",num) 
                     return False
     return True
-            
-def validate_building_geojson(building_outline,delim=',', newline="\n" ,quiet_mode=False):
+
+def compare_strings(first, second):
+    """Compare two strings and return a number between 0 and 1 representing how similar they are.
+    1=perfect match 
+    0=no match 
+
+    Args:
+        first (str): first string
+        second (str): second string
+
+    Returns:
+        float: float representing how similar the two strings are
+    """
+       
+    return SequenceMatcher(None, first, second).ratio()
+
+def validate_building_geojson(building_outline ,quiet_mode=False):
     # TODO: validate geojson files
     print("THE GEOJSON VALIDATOR IS NOT DONE. PLASE FINISH")
     return True
 
-def create_output_geojson(building_outline,building_map_csv,delim=',', newline="\n"):
-    """Creates a geojson from only the buildings mapped in the csv
+def create_output_geojson(building_outline,building_map_csv,delim=',', newline="\n", weight_location_on_name=True):
+    """Create a geojson from only the buildings mapped in the csv
 
     Args:
-        building_outline (_type_): _description_
-        building_map_csv (_type_): _description_
-        delim (str, optional): _description_. Defaults to ','.
-        newline (str, optional): _description_. Defaults to "\n".
+        building_outline (geojson): geojson with all the building outlines and additonal metadata
+        building_map_csv (str): csv of building map 
+        delim (str, optional): csv delimiter. Defaults to ','.
+        newline (str, optional): csv newline. Defaults to "\n".
     """
     output = {"type": "FeatureCollection", "features": []}
     buildings = building_outline["features"]
     header = building_map_csv.split(newline)[0]
     lines = building_map_csv.split(newline)[1:]
-    for line in lines:
+    ignored = 0
+    blacklist_size = 0
+    start_size = len(lines)
+
+    blacklist = {}
+    for l in lines:
+        three = l.split(delim)[0]
+        blacklist[three] = []
+
+    # Loop for each building in the input csv
+    for i,line in enumerate(lines):
+       
+        # blacklist a building in the csv from matching with a building in the json (a closer building exists)
+        # key: csv[0](3 letter code) value: geojson feature name
         cols = line.split(delim)
+
+        # DEBUG
+        # if cols[0] != "RRB":
+        #     continue
+
+        if len(cols) > 2:
+            csv_building_name = cols[1]
+        else:
+            continue
+
+        print(f"Checking: {csv_building_name} ({i}/{start_size})")
+        print(f"Remaining: {len(lines)-i}, Blacklist_Size: {blacklist_size}")
 
         # make sure the line of the csv is valid
         if len(line) > 0 and line.isspace() == False and cols[3].lower() != "null" and cols[4].lower() != "null":
@@ -71,30 +112,111 @@ def create_output_geojson(building_outline,building_map_csv,delim=',', newline="
 
             min_dist = 100
             closest_feature = "null"
-            if cols[0].lower() == "GFS":
-                print(f"GFS: {curr_lat},{curr_lon}")
+            
+            # Loop over all features in the input geojson
             for feature in buildings:
-                if feature["properties"]["CODE"] is not None and feature["properties"]["CODE"].lower() == "building":
+                fprop = feature.get("properties")
+                
+                if fprop is None or fprop == "":
+                    print(f"WARNING: feature lacks properties field. Skipping feature: {feature}")
+                    continue
+
+                fbuilding = fprop.get("building")
+                fname = fprop.get("name")
+
+                # Cannot weight building on name if it has no name
+                if weight_location_on_name and (fname is None or fname == "None"):
+                    continue
+
+                # if current csv element has been blacklisted from choosing certain features to be it
+                if blacklist.get(cols[0]):
+                    if fname in blacklist[cols[0]]:
+                        #print(f"{fname} in blacklist for {csv_building_name}. Skipping")
+                        continue
+
+                # if the feature code is labled as a building
+                if fbuilding and fname != "None" and (fprop["amenity"] == None or fprop["amenity"] == "None"): # and fprop["building"].lower() == "university":                    
                     coords = list(geojson.utils.coords(feature))
                     local_min_dist = get_radial_distance(float(coords[0][1]), float(coords[0][0]), curr_lat, curr_lon)
+                    dists = []
                     for c in coords:
                         
                         curr_dist = get_radial_distance(float(c[1]), float(c[0]), curr_lat, curr_lon)
+                        
+                        # Add a multiplyer to the curr distance based on how similar the building names are 
+                        if weight_location_on_name:
+                            if fname is not None and csv_building_name is not None and fname != "None":
+                                string_cmp = 2*compare_strings(csv_building_name, fname)
+                            else:
+                                string_cmp = 0
+
+
+                            # If strings have no relation distance = inf
+                            if string_cmp > 0:
+                                dists.append(curr_dist * 1/string_cmp)
+                            else:
+                                curr_dist = 10000
+                            
+                            # Debug
+                            # if fname != "None":
+                            #     print(f"\"{fname}\": {curr_dist}")
+
                         if curr_dist < min_dist:
                             local_min_dist = curr_dist
                     
-                    if local_min_dist < min_dist and local_min_dist < 0.005:
+                    if local_min_dist < min_dist:
                         min_dist = local_min_dist
                         closest_feature = feature
 
-            if str(closest_feature).lower() != "null":
+            # if there was a closests feature found for that building add it to the output geojson
+            if str(closest_feature).lower() != "null" and min_dist < 0.008:
+                
                 new_feature = closest_feature
+                new_feature["min_dist"] = min_dist
                 prop = new_feature["properties"]
-                for num,c in enumerate(cols):
-                    prop[header.split(delim)[num]] = c
-                output["features"].append(new_feature)
+                prop_name = prop["name"]
+                #print(f"ACCEPTED: {cols[1]} || {prop_name}" )
+
+                # Find if new feature is already in outputs
+                old_prop = {}
+                for of in output["features"]:
+                    of = of["properties"]
+                    #print(f"\n\n{of}\n\n")
+                    #print(f"\n\n{prop}\n\n")
+                    if of["name"] == prop["name"]:
+                        old_prop = of
+                        break
+                
+                addme = True
+                if old_prop:
+                    if min_dist < old_prop["min_dist"]:
+                        ocode = old_prop["building_code"]
+                        oname = old_prop["building_name"]
+                        oaddress = old_prop["building_address"]
+                        olat = old_prop["lat"]
+                        olong = old_prop["lon"]
+                        lines.append(f"{ocode},{oname},{oaddress},{olat},{olong}\n")
+                        blacklist[ocode].append(old_prop["name"])
+                        blacklist_size += 1
+                        #print("new one closer")
+
+                    else:
+                        lines.append(line)
+                        blacklist[cols[0]].append(old_prop["name"])
+                        blacklist_size += 1
+                        #print("old one closer")
+                        addme = False
+                
+                if addme:
+                    prop["min_dist"] = min_dist
+                    for num,c in enumerate(cols):
+                        prop[header.split(delim)[num]] = c
+                    output["features"].append(new_feature)
+            else:
+                #print(f"IGNORING - closest feature: {cols[0]}")
+                ignored += 1
             
-            
+    print(f"IGNORED: {ignored}")
     return output
 
 def get_radial_distance(a_lat, a_lon, b_lat, b_lon):
@@ -112,6 +234,7 @@ def get_radial_distance(a_lat, a_lon, b_lat, b_lon):
     lon_diff = np.absolute(a_lon - b_lon)
     radial_dist = np.sqrt(lat_diff**2 + lon_diff**2)
     return radial_dist
+
 # ---------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
