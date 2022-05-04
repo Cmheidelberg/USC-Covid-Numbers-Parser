@@ -1,7 +1,6 @@
 building_code,building_name,building_address,lat,lon
 ABA,Anna Bing Arnold Child Care Ctr.,2715 University Ave.,34.028564714285714,-118.28061885714285
 ABM,American Button Manufacturing,2823 S. Flower St.,34.02580244897959,-118.276025
-ABX,Anna Bing Arnold Child Care Ctr. Annex,2716 Severance St. 90007,34.029082373737374,-118.28155241414142
 ACB,Ahmanson Ctr. for Biological Research,825 Bloom Walk,34.0193619,-118.28691846895353
 ACC,Accounting,Leventhal School of 3660 Trousdale Pkwy.,34.01915685,-118.28556796132531
 ACX,Ahmanson Ctr. for Biological Research Animal Section,825 Bloom Walk,34.0193619,-118.28691846895353
@@ -28,7 +27,6 @@ BMH,Booth Ferris Rehearsal Hall,820 W. 34th St.,34.0226434,-118.2848027171458
 BMP,Burbank Medical Plaza #2,191 S. Buena Vista St. #310 Burbank,34.159946081632654,-118.32905726530612
 BMT,Bishop Medical Teaching and Research Bldg.,1333 San Pablo St.,34.060095177500465,-118.20426560609182
 BRI,Barrack Hall,3670 Trousdale Pkwy.,34.018844200000004,-118.28577094826521
-BSR,Birnkrant Residential College,642 W. 34th St.,34.02160385714286,-118.28182885714286
 CAB,CMSC Administration Bldg.,P.O. Box 398 Catalina Island 90704,33.44454820955747,-118.48200892692567
 CAL,Carole Little Bldg.,3434 S. Grand Ave.,34.0283216,-118.2711155
 CAP,Century Apts.,3115 S. Orchard Ave.,33.8838497,-118.2881154
@@ -134,7 +132,6 @@ LEI,Lawrence J. Ellison Institute,12414 Exposition Blvd.,34.030686571428575,-118
 LHI,Donald P. and Katherine B. Loker Hydrocarbon Inst.,837 Bloom Walk,34.019622049999995,-118.28759272158814
 LJS,Laird J. Stabler Memorial Hall,840 Downey Way,34.01967525,-118.2864940846109
 LRC,General William Lyon University Ctr.,1026 W. 34th St.,34.02440595,-118.28842677721451
-LTS,Katherine B. Loker Track Stadium,3550 McClintock Ave.,34.02308763265306,-118.28815459183673
 LVL,Thomas and Dorothy Leavey Library,650 W. McCarthy Way,34.021762,-118.282898
 MAB,Manor Apts.,2636 Portland St.,34.030381909090906,-118.28230081818181
 MBC,MacDonald Becket Center,850 W. Bloom Walk,null,null
@@ -154,7 +151,6 @@ MRF,Montgomery Ross Fisher Bldg.,669 W. 34th St.,34.022341,-118.28253090514032
 MRI,Magnetic Resonance Imaging Building,2025 Zonal Ave.,34.06022105479452,-118.20618926027397
 MSC,Marine Sciences Ctr. Lab,Catalina Island,55.5481127,-133.2923757027654
 MSR,Marine Sciences Center Residence Hall,Catalina Island,55.5481127,-133.2923757027654
-MTX,Marks Tennis Stadium,1075 Childs Way,34.0228763877551,-118.2908123877551
 MUS,Albert S. Raubenheimer Music Faculty Memorial Bldg.,840 W. 34th St.,34.02295785,-118.28510640002173
 NBC,Shelly and Ofer Nemirovsky and David C. Bohnett Residential College,3201 S. Hoover St.,34.025377,-118.284032
 NCT,Norris Cinema Theatre,3507 Trousdale Pkwy.,34.022538,-118.283962
@@ -163,7 +159,6 @@ NML,Norris Medical Library,2003 Zonal Ave.,34.060354260273975,-118.2064919863013
 NOR,Kenneth Norris Jr. Cancer Hospital Research Institute,1441 Eastlake Ave.,34.06143675,-118.20541166805805
 NRT,Harlyne J. Norris Research Tower,1450 Biggy St.,34.061867303030304,-118.20554387878788
 NTT,Dr. Norman Topping Tower,1441 Eastlake Ave.,34.06143675,-118.20541166805805
-OCW,Harold E. and Lillian M. Moulton Organic Chemistry Wing,810 Downey Way,34.02020710204082,-118.28752808163266
 OHE,Olin Hall of Engineering,3650 McClintock Ave.,34.020692499999996,-118.28950445076168
 ONE,One Institute,909 W. Adams Blvd.,34.031033,-118.28155684933787
 OSP,Our Savior Parish and USC Caruso Catholic Center,844 W. 32nd St.,34.02508455,-118.28344415121863
@@ -230,7 +225,6 @@ SUN,Sunset Apts.,1144 W. 29th St.,34.028163899999996,-118.28521510780116
 SWC,Social Work Ctr.,655 W. 34th St.,34.02246745,-118.28216212418714
 TAP,Troyland Apts.,955-959 W. Adams Blvd.,34.0325308,-118.3481364
 TCC,Ronald Tutor Campus Center,3607 Trousdale Pkwy.,34.019737375,-118.285719875
-TCX,Tennis Court I,1015 Childs Way,34.022259857142856,-118.28944585714285
 TGF,Town and Gown,665 Exposition Blvd.,34.01910755,-118.28428015
 THH,Taper Hall of Humanities,3501 Trousdale Pkwy.,34.02223085,-118.28461267841652
 THR,Two Harbors Residences,Two Harbors Catalina Island,null,null
